@@ -1,13 +1,13 @@
 import { PrismaService } from "src/prisma.service";
 import { Driver } from "./driver.model";
 
+
 export class DriverService{
-    constructor(private prisma: PrismaService){}
-    
+    constructor(){}
+     prisma = new PrismaService();
+
     async getAllDrivers(): Promise<Driver[]>{
-        const result = this.prisma.drivers.findMany();
-        console.log(result);
-        return result
+        return  this.prisma.drivers.findMany();
     }
     
     async getDriver(id:number): Promise<Driver | null>{

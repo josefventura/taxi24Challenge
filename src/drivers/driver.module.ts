@@ -6,7 +6,7 @@ import { Module } from "@nestjs/common";
 
 @Module({
     controllers: [DriverController],
-    providers: [DriverService, PrismaService]
+    providers: [PrismaService, DriverService]
 })
 
 export class DriverModule{}
