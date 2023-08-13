@@ -1,0 +1,58 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model drivers {
+  id                  Int       @id @default(autoincrement())
+  fullname            String?   @db.VarChar
+  current_location    String?   @db.VarChar
+  registration_number String?   @db.VarChar
+  status              status?
+  created_at          DateTime? @db.Timestamp(6)
+  modified_at         DateTime? @db.Timestamp(6)
+  travels             travels[]
+}
+
+model invoice {
+  id           Int      @id @default(autoincrement())
+  travel_id    Int?
+  travel_price Decimal? @db.Decimal
+  taxes        Decimal? @db.Decimal
+  total        Decimal? @db.Decimal
+  status       status?
+  travels      travels? @relation(fields: [travel_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model passengers {
+  id               Int       @id @default(autoincrement())
+  fullname         String?   @db.VarChar
+  current_location String?   @db.VarChar
+  status           status?
+  created_at       DateTime? @db.Timestamp(6)
+  modified_at      DateTime? @db.Timestamp(6)
+  travels          travels[]
+}
+
+model travels {
+  id           Int         @id @default(autoincrement())
+  passenger_id Int?
+  driver_id    Int?
+  from         String?     @db.VarChar
+  to           String?     @db.VarChar
+  status       status?
+  created_at   DateTime?   @db.Timestamp(6)
+  invoice      invoice[]
+  drivers      drivers?    @relation(fields: [driver_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  passengers   passengers? @relation(fields: [passenger_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+enum status {
+  active
+  inactive
+  inprocess
+}
