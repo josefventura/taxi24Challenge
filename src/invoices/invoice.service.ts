@@ -24,7 +24,7 @@ export class InvoiceService{
         //check up how to update right the data
         return this.prisma.invoice.update({
             where:{id: Number(id)},
-            data:{ status: data.status}
+            data:{ is_active: data.is_active}
         })
     }
 }

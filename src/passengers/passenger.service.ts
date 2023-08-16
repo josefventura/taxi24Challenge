@@ -23,7 +23,7 @@ export class PassengerService{
     async updatePassenger(id:number,data:Passenger): Promise<Passenger>{
         return this.prisma.passengers.update({
             where:{id: Number(id)},
-            data:{ fullname: data.fullname, current_location: data.current_location, status: data.status, modified_at: new Date}
+            data:{ fullname: data.fullname, lat: data.lat, lng: data.lng, is_active: data.is_active, modified_at: new Date}
         })
     }
 }

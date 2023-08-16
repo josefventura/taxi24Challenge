@@ -1,30 +1,33 @@
 import { PrismaService } from "src/prisma.service";
-import { Travel } from "./travels.model";
+import { Travels } from "./travels.model";
 
 
 export class TravelService{
     constructor(){}
      prisma = new PrismaService();
 
-    async getAllTravels(): Promise<Travel[]>{
-        return  this.prisma.travels.findMany();
+    async getAllAvailableTravels(): Promise<Travels[]>{
+        return  this.prisma.travels.findMany({where:{is_active:true}});
     }
     
-    async getTravel(id:number): Promise<Travel | null>{
+    async getTravel(id:number): Promise<Travels | null>{
         return this.prisma.travels.findUnique({where:{id:Number(id)}})
     }
     
-    async createTravel(data: Travel): Promise<Travel>{
+    async createTravel(data: Travels): Promise<Travels>{
         return this.prisma.travels.create({
-            data
+            data: {
+                ...data,
+                travel_status: "inprocess"
+            }
         })
     }
 
-    async updateTravel(id:number,data:Travel): Promise<Travel>{
-        //check up how to update right the data
+    async updateTravel(id:number,data:Travels): Promise<Travels>{
+
         return this.prisma.travels.update({
             where:{id: Number(id)},
-            data:{ status: data.status}
+            data:{ is_active: data.is_active}
         })
     }
 }

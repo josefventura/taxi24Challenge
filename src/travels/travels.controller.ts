@@ -1,16 +1,16 @@
 import { Body, Get, Param, Post, Put, Controller, Res } from "@nestjs/common";
-import { Travel } from "./travels.model";
+import { Travels } from "./travels.model";
 import { TravelService } from "./travels.service";
 import {  Response } from "express";
 
-@Controller('api/v1/travel')
+@Controller('api/v1/travels')
 export class TravelController{
 
     constructor(private readonly travelService: TravelService){}
     
     @Get()
     async getAllTravels( @Res() response: Response ): Promise<any>{
-        const result = await this.travelService.getAllTravels()
+        const result = await this.travelService.getAllAvailableTravels()
         return response.status(200).json({
             status: "Success!",
             message: "Data obtenida correctamente!",
@@ -19,7 +19,7 @@ export class TravelController{
     }
 
     @Post()
-    async postTravel( @Body() postData: Travel, @Res() response: Response ): Promise<any>{
+    async postTravel( @Body() postData: Travels, @Res() response: Response ): Promise<any>{
         const result = await this.travelService.createTravel(postData);
         return response.status(200).json({
             status: "Success!",
@@ -39,7 +39,7 @@ export class TravelController{
     }
 
     @Put(":id")
-    async updateTravel(@Param('id') id:number, @Body() data: Travel, @Res() response: Response): Promise<any>{
+    async updateTravel(@Param('id') id:number, @Body() data: Travels, @Res() response: Response): Promise<any>{
         const result =  await this.travelService.updateTravel(id, data);
         return response.status(200).json({
             status: "Success!",

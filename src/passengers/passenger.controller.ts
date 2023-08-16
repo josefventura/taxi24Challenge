@@ -3,7 +3,7 @@ import { Passenger } from "./passenger.model";
 import { PassengerService } from "./passenger.service";
 import {  Response } from "express";
 
-@Controller('api/v1/passenger')
+@Controller('api/v1/passengers')
 export class PassengerController{
 
     constructor(private readonly passengerService: PassengerService){}

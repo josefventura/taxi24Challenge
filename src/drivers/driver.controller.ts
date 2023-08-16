@@ -3,7 +3,7 @@ import { Driver } from "./driver.model";
 import { DriverService } from "./driver.service";
 import {  Response } from "express";
 
-@Controller('api/v1/driver')
+@Controller('api/v1/drivers')
 export class DriverController{
 
     constructor(private readonly driverService: DriverService){}
@@ -11,6 +11,24 @@ export class DriverController{
     @Get()
     async getAllDrivers( @Res() response: Response ): Promise<any>{
         const result = await this.driverService.getAllDrivers()
+        return response.status(200).json({
+            status: "Success!",
+            message: "Data obtenida correctamente!",
+            result: result
+        })
+    }
+    @Get(":lat/:lng")
+    async getNearbyDrivers(@Param('lat') lat: number, @Param('lng') lng:number, @Res() response: Response ): Promise<any>{
+        const result = await this.driverService.getNearbyDrivers(Number(lat), Number(lng));
+        return response.status(200).json({
+            status: "Success!",
+            message: "Data obtenida correctamente!",
+            result: result
+        })
+    }
+    @Get('/available')
+    async getAllAvailableDrivers( @Res() response: Response ): Promise<any>{
+        const result = await this.driverService.getAllAvailableDrivers()
         return response.status(200).json({
             status: "Success!",
             message: "Data obtenida correctamente!",

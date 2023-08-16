@@ -3,7 +3,7 @@ import { Invoice } from "./invoice.model";
 import { InvoiceService } from "./invoice.service";
 import {  Response } from "express";
 
-@Controller('api/v1/invoice')
+@Controller('api/v1/invoices')
 export class InvoiceController{
 
     constructor(private readonly invoiceService: InvoiceService){}

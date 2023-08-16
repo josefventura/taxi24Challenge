@@ -1,35 +1,39 @@
-import { Driver } from "src/drivers/driver.model";
+import { drivers as Driver } from "@prisma/client";
 
 export const drivers = [
   {
     fullname: 'juan jose alberto',
-    current_location: '18.488421,-69.900687',
+    lat: 18.488421,
+    lng:-69.900687,
     registration_number: 'AA123CC',
-    status: 'active',
+    is_active: true,
     created_at:new Date,
     modified_at:new Date,
   },
   {
     fullname: 'michael felps',
-    current_location: '18.481410,-69.931089',
+    lat: 18.481410,
+    lng:-69.931089,
     registration_number: 'AA124DD',
-    status: 'active',
+    is_active: true,
     created_at:new Date,
     modified_at:new Date,
   },
   {
     fullname: 'roberto contreras',
-    current_location: '18.576698,-69.899592',
+    lat: 18.576698,
+    lng: -69.899592,
     registration_number: 'AA123FF',
-    status: 'active',
+    is_active: true,
     created_at:new Date,
     modified_at:new Date,
   },
   {
     fullname: 'felix maldonado',
-    current_location: '18.511273,-69.796268',
+    lat: 18.511273,
+    lng: -69.796268,
     registration_number: 'AA123FF',
-    status: 'inactive',
+    is_active: false,
     created_at:new Date,
     modified_at:new Date,
   }
