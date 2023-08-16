@@ -27,4 +27,4 @@ Al correr el proyecto puedes ingresar a [Swagger](http://localhost:3001/document
 
 ## Posibles mejoras:
 
-- utilizar el servicio de googlemaps para la distancia especifica
+- utilizar el servicio de googlemaps para el cálculo de la distancia específica.

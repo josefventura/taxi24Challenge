@@ -1,5 +1,5 @@
 import { PrismaService } from "src/prisma.service";
-import { Passenger } from "./passenger.model";
+import { Passenger, PassengerDTO } from "./passenger.model";
 import { Driver } from "src/drivers/driver.model";
 import nearbySort from "src/utils/location.functions";
 
@@ -34,13 +34,18 @@ export class PassengerService{
         return this.prisma.passengers.findUnique({where:{id:Number(id)}})
     }
     
-    async createPassenger(data: Passenger): Promise<Passenger>{
+    async createPassenger(data: PassengerDTO): Promise<Passenger>{
         return this.prisma.passengers.create({
-            data
+            data:{
+                fullname:data.fullname,
+                lat: data.lat,
+                lng: data.lng,
+                is_active: true
+            }
         })
     }
 
-    async updatePassenger(id:number,data:Passenger): Promise<Passenger>{
+    async updatePassenger(id:number,data:PassengerDTO): Promise<Passenger>{
         return this.prisma.passengers.update({
             where:{id: Number(id)},
             data:{ fullname: data.fullname, lat: data.lat, lng: data.lng, is_active: data.is_active, modified_at: new Date}

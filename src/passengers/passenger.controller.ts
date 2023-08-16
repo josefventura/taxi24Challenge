@@ -1,5 +1,5 @@
 import { Body, Get, Param, Post, Put, Controller, Res, HttpException } from "@nestjs/common";
-import { Passenger } from "./passenger.model";
+import { PassengerDTO } from "./passenger.model";
 import { PassengerService } from "./passenger.service";
 import {  Response } from "express";
 import { ApiOperation, ApiTags } from "@nestjs/swagger";
@@ -27,7 +27,7 @@ export class PassengerController{
 
     @Post()
     @ApiOperation({ summary: 'Servicio para crear un nuevo pasajero' })
-    async postPassenger( @Body() postData: Passenger, @Res() response: Response ): Promise<any>{
+    async postPassenger( @Body() postData: PassengerDTO, @Res() response: Response ): Promise<any>{
         try{
             const result = await this.passengerService.createPassenger(postData);
             return response.status(200).json({
@@ -72,7 +72,7 @@ export class PassengerController{
 
     @Put(":id")
     @ApiOperation({ summary: 'Servicio para actualizar un pasajero' })
-    async updatePassenger(@Param('id') id:number, @Body() data: Passenger, @Res() response: Response): Promise<any>{
+    async updatePassenger(@Param('id') id:number, @Body() data: PassengerDTO, @Res() response: Response): Promise<any>{
         try{
             const result =  await this.passengerService.updatePassenger(id, data);
             return response.status(200).json({
