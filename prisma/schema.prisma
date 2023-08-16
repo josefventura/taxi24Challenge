@@ -26,6 +26,7 @@ model invoice {
   travel_price Decimal @db.Decimal
   taxes        Decimal @db.Decimal
   total        Decimal @db.Decimal
+
   is_active    Boolean
 
   travels travels @relation(fields: [travel_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
@@ -49,6 +50,7 @@ model travels {
   driver_id      Int
   from           String   @db.VarChar
   to             String   @db.VarChar
+  distance       Decimal  @db.Decimal @default(0)
   is_active      Boolean
   travel_status  travel_status
   created_at     DateTime @default(now()) @db.Timestamp(6)

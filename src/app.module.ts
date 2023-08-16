@@ -5,6 +5,7 @@ import { InvoiceModule } from './invoices/invoice.module';
 import { TravelModule } from './travels/travel.module';
 
 
+
 @Module({
   imports: [DriverModule, PassengerModule, InvoiceModule, TravelModule],
   controllers: [],

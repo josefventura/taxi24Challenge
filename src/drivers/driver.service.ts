@@ -1,5 +1,5 @@
 import { PrismaService } from "src/prisma.service";
-import { Driver } from "./driver.model";
+import { Driver, DriverDTO } from "./driver.model";
 import { generateQueryKm } from "./sql/drivers.queries";
 // import { generateQuerKm } from "./sql/drivers";
 // import { Prisma } from "@prisma/client";
@@ -25,13 +25,16 @@ export class DriverService{
         return this.prisma.drivers.findUnique({where:{id:Number(id)}})
     }
     
-    async createDriver(data: Driver): Promise<Driver>{
+    async createDriver(data: DriverDTO): Promise<Driver>{
         return this.prisma.drivers.create({
-            data
+            data: {
+                ...data,
+                is_active: true,
+            }
         })
     }
 
-    async updateDriver(id:number,data:Driver): Promise<Driver>{
+    async updateDriver(id:number,data:DriverDTO): Promise<Driver>{
         return this.prisma.drivers.update({
             where:{id: Number(id)},
             data:{ fullname: data.fullname, lat: data.lat, lng: data.lng, registration_number: data.registration_number, is_active: data.is_active, modified_at: new Date}

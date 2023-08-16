@@ -1,7 +1,8 @@
 import { PrismaService } from "src/prisma.service";
 import { Invoice } from "./invoice.model";
+import { getDistance } from "src/utils/location.functions";
 
-
+"lat,long"
 export class InvoiceService{
     constructor(){}
      prisma = new PrismaService();
@@ -14,10 +15,23 @@ export class InvoiceService{
         return this.prisma.invoice.findUnique({where:{id:Number(id)}})
     }
     
-    async createInvoice(data: Invoice): Promise<Invoice>{
+    async createInvoice(travelId: number): Promise<Invoice>{
+        const {to, from} = await this.prisma.travels.findUnique({where:{id:Number(travelId)}});
+        const [lat, lng] = to.split(",");
+        const [lat2, lng2] = from.split(",");
+        const travelPrice = getDistance( Number(lat), Number(lng), Number(lat2), Number(lng2)) * 25
+        const taxes = travelPrice *0.18;
+        const totalPrice = taxes + travelPrice;
+        
         return this.prisma.invoice.create({
-            data
-        })
+            data:{
+                travel_id: Number(travelId),
+                travel_price: travelPrice,
+                taxes: taxes,
+                total: totalPrice,
+                is_active: true,
+             }
+        });
     }
 
     async updateInvoice(id:number,data:Invoice): Promise<Invoice>{

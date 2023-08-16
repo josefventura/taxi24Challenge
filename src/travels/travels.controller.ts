@@ -1,51 +1,75 @@
-import { Body, Get, Param, Post, Put, Controller, Res } from "@nestjs/common";
-import { Travels } from "./travels.model";
+import { Body, Get, Param, Post, Put, Controller, Res, HttpException } from "@nestjs/common";
+import { TravelsDTO } from "./travels.model";
 import { TravelService } from "./travels.service";
-import {  Response } from "express";
+import { Response } from "express";
+import { InvoiceService } from "src/invoices/invoice.service";
+import { ApiTags, ApiOperation } from "@nestjs/swagger";
 
-@Controller('api/v1/travels')
+
+@ApiTags('Travels')
+@Controller('travels')
 export class TravelController{
-
-    constructor(private readonly travelService: TravelService){}
+    constructor(private readonly travelService: TravelService, private readonly invoiceService: InvoiceService){}
     
     @Get()
+    @ApiOperation({ summary: 'Servicio para obtener todos los viajes' })
     async getAllTravels( @Res() response: Response ): Promise<any>{
-        const result = await this.travelService.getAllAvailableTravels()
-        return response.status(200).json({
-            status: "Success!",
-            message: "Data obtenida correctamente!",
-            result: result
-        })
+        try{
+            const result = await this.travelService.getAllAvailableTravels()
+            return response.status(200).json({
+                status: "Success!",
+                message: "Data obtenida correctamente!",
+                result: result
+            })
+        }catch(e){
+            throw new HttpException(e.message?? "there was an error", e.statusCode?? 404); 
+        }
     }
 
     @Post()
-    async postTravel( @Body() postData: Travels, @Res() response: Response ): Promise<any>{
-        const result = await this.travelService.createTravel(postData);
-        return response.status(200).json({
-            status: "Success!",
-            message: "Data obtenida correctamente!",
-            result: result
-        })
+    @ApiOperation({ summary: 'Servicio para crear un nuevo viaje' })
+    async postTravel( @Body() postData: TravelsDTO, @Res() response: Response ): Promise<any>{
+        try{
+            const result = await this.travelService.createTravel(postData);
+            return response.status(200).json({
+                status: "Success!",
+                message: "Data obtenida correctamente!",
+                result: result
+            })
+        }catch(e){
+            throw new HttpException(e.message?? "there was an error", e.statusCode?? 404); 
+        }
     }
 
     @Get(":id")
-    async getPassenger(@Param('id') id:number, @Res() response: Response): Promise<any | null>{
-        const result = await this.travelService.getTravel(id);
-        return response.status(200).json({
-            status: "Success!",
-            message: "Data obtenida correctamente!",
-            result: result
-        })
+    @ApiOperation({ summary: 'Servicio para obtener un viaje especifico por id' })
+    async getTravel(@Param('id') id:number, @Res() response: Response): Promise<any | null>{
+        try{
+            const result = await this.travelService.getTravel(id);
+            return response.status(200).json({
+                status: "Success!",
+                message: "Data obtenida correctamente!",
+                result: result
+            })
+        }catch(e){
+            throw new HttpException(e.message?? "there was an error", e.statusCode?? 404); 
+        }
     }
 
-    @Put(":id")
-    async updateTravel(@Param('id') id:number, @Body() data: Travels, @Res() response: Response): Promise<any>{
-        const result =  await this.travelService.updateTravel(id, data);
-        return response.status(200).json({
-            status: "Success!",
-            message: "Data obtenida correctamente!",
-            result: result
-        })
+    @Put(":id/complete")
+    @ApiOperation({ summary: 'Servicio para completar un viaje y tambien genera la factura' })
+    async completeTravel(@Param('id') id:number, @Res() response: Response): Promise<any | null>{
+        try{
+            this.invoiceService.createInvoice(id)
+            const result = await this.travelService.completeTravel(id);
+            return response.status(200).json({
+                status: "Success!",
+                message: "Data obtenida correctamente!",
+                result: result
+            })
+        }catch(e){
+            throw new HttpException(e.message?? "there was an error", e.statusCode?? 404); 
+        }
     }
 
 }
