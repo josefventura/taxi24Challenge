@@ -8,6 +8,8 @@ el utilizado en el proyecto fue [Docker-docs](https://www.docker.com/products/do
 
  - Requiere de node 18.17 para su funcionamiento
 
+ - Asegurarse de correr comandos como administrador en cmd
+
 ```cmd
  docker-compose up
  npm install -g
