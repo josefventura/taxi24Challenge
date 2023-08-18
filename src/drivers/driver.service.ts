@@ -1,8 +1,6 @@
 import { PrismaService } from "src/prisma.service";
 import { Driver, DriverDTO } from "./driver.model";
 import { generateQueryKm } from "./sql/drivers.queries";
-// import { generateQuerKm } from "./sql/drivers";
-// import { Prisma } from "@prisma/client";
 
 
 export class DriverService{
