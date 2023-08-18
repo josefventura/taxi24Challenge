@@ -20,7 +20,7 @@ export class DriverController{
                 message: "Data obtenida correctamente!",
                 result: result
         })}catch(e){
-            throw new HttpException(e.message?? "there was an error", e.statusCode?? 404); 
+            throw new HttpException(e.message?? "there was an error", e.statusCode?? 400); 
         }
     }
     @Get(":lat/:lng")
@@ -35,7 +35,7 @@ export class DriverController{
             })
         }catch(e){
             console.log(e)
-            throw new HttpException(e.message?? "there was an error", e.statusCode?? 404); 
+            throw new HttpException(e.message?? "there was an error", e.statusCode?? 400); 
         }
     }
     @Get('available')
@@ -49,7 +49,7 @@ export class DriverController{
                 result: result
             })
         }catch(e){
-            throw new HttpException(e.message?? "there was an error", e.statusCode?? 404); 
+            throw new HttpException(e.message?? "there was an error", e.statusCode?? 400); 
         }
     }
 
@@ -64,7 +64,7 @@ export class DriverController{
                 result: result
             })
         }catch(e){
-            throw new HttpException(e.message?? "there was an error", e.statusCode?? 404); 
+            throw new HttpException(e.message?? "there was an error", e.statusCode?? 400); 
         }
     }
 
@@ -80,7 +80,7 @@ export class DriverController{
                 result: result
             })
         }catch(e){
-            throw new HttpException(e.message?? "there was an error", e.statusCode?? 404); 
+            throw new HttpException(e.message?? "there was an error", e.statusCode?? 400); 
         }
     }
 
@@ -95,7 +95,7 @@ export class DriverController{
                 result: result
             })
         }catch(e){
-            throw new HttpException(e.message?? "there was an error", e.statusCode?? 404); 
+            throw new HttpException(e.message?? "there was an error", e.statusCode?? 400); 
         }
     }
 

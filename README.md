@@ -10,8 +10,9 @@ el utilizado en el proyecto fue [Docker-docs](https://www.docker.com/products/do
 
 ```cmd
  docker-compose up
- npm i
+ npm install -g
  npx prisma migrate dev
+ npx prisma db seed
  ```
 
 
@@ -28,3 +29,11 @@ Al correr el proyecto puedes ingresar a [Swagger](http://localhost:3001/document
 ## Posibles mejoras:
 
 - utilizar el servicio de googlemaps para el cálculo de la distancia específica.
+
+## Consejos
+
+- asegurarse de tener version de node requerida y de instalar todos las librerias, en caso de error al momento de ejecutar npx prisma, asegurarse de tener los archivos necesarios de npm ejecutando el codigo debajo y volviendo a ejecutar los pasos de instalación: 
+
+```cmd
+npm install -g npm
+```

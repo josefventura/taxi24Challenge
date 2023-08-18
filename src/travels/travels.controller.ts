@@ -22,7 +22,7 @@ export class TravelController{
                 result: result
             })
         }catch(e){
-            throw new HttpException(e.message?? "there was an error", e.statusCode?? 404); 
+            throw new HttpException(e.message?? "there was an error", e.statusCode?? 400); 
         }
     }
 
@@ -37,7 +37,7 @@ export class TravelController{
                 result: result
             })
         }catch(e){
-            throw new HttpException(e.message?? "there was an error", e.statusCode?? 404); 
+            throw new HttpException(e.message?? "there was an error", e.statusCode?? 400); 
         }
     }
 
@@ -52,7 +52,7 @@ export class TravelController{
                 result: result
             })
         }catch(e){
-            throw new HttpException(e.message?? "there was an error", e.statusCode?? 404); 
+            throw new HttpException(e.message?? "there was an error", e.statusCode?? 400); 
         }
     }
 
@@ -68,7 +68,7 @@ export class TravelController{
                 result: result
             })
         }catch(e){
-            throw new HttpException(e.message?? "there was an error", e.statusCode?? 404); 
+            throw new HttpException(e.message?? "there was an error", e.statusCode?? 400); 
         }
     }
 

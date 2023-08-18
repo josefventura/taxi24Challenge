@@ -27,6 +27,22 @@ export const passengers = [
     modified_at:new Date,
   },
   {
+    fullname: 'dominga alberta',
+    lat: 18.481410,
+    lng: -69.931189,
+    is_active: true,
+    created_at:new Date,
+    modified_at:new Date,
+  },
+  {
+    fullname: 'jessica manuela',
+    lat: 18.576618,
+    lng: -69.899592,
+    is_active: true,
+    created_at:new Date,
+    modified_at:new Date,
+  },
+  {
     fullname: 'luffy maldonado',
     lat: 18.511173,
     lng: -69.796168,
